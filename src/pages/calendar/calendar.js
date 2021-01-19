@@ -1,20 +1,31 @@
-import React from 'react';
+import { useContext } from 'react';
 import classes from './calendar.module.css';
-import leftArrow from '../../assets/images/left-arrow.svg';
-import rightArrow from '../../assets/images/right-arrow.svg';
+import leftArrowLight from '../../assets/images/left-arrow-light.svg';
+import leftArrowDark from '../../assets/images/left-arrow-dark.svg';
+import rightArrowLight from '../../assets/images/right-arrow-light.svg';
+import rightArrowDark from '../../assets/images/right-arrow-dark.svg';
 import addIcon from '../../assets/images/add.svg';
+import { ThemeContext } from '../../context/themeContext';
 
-const calendar = () => {
+const Calendar = () => {
+  const themeContext = useContext(ThemeContext);
+
   return (
-    <div className={classes.calendar}>
+    <div className={themeContext.theme === 'light' ? classes.calendar : `${classes.calendar} ${classes.dark}`}>
       <div className={classes.calendarBox}>
         <div className={classes.calendarControls}>
           <span className={classes.arrow}>
-            <img src={leftArrow} alt="left arrow" width="12" />
+            {themeContext.theme === 'light' ? 
+              <img src={leftArrowDark} alt="left arrow" width="12" /> : 
+              <img src={leftArrowLight} alt="left arrow" width="12" />
+            }
           </span>
             <p className={classes.today}>January 2021</p>
           <span className={classes.arrow}>
-            <img src={rightArrow} alt="right arrow" width="12" />
+            {themeContext.theme === 'light' ? 
+              <img src={rightArrowDark} alt="right arrow" width="12" /> : 
+              <img src={rightArrowLight} alt="right arrow" width="12" />
+            }
           </span>
         </div>
         <div className={classes.calendarGrid}>
@@ -38,4 +49,4 @@ const calendar = () => {
   )
 }
 
-export default calendar;
+export default Calendar;

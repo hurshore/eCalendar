@@ -2,12 +2,20 @@
   padding: 1rem;
 }
 
+.calendar.dark {
+  color: #FFF;
+}
+
 .calendarBox {
   background-color: #FFF;
   border-radius: .7rem;
   padding: 1.2rem;
   max-width: 300px;
   margin: auto;
+}
+
+.dark .calendarBox {
+  background-color: #1D1E1F;
 }
 
 .calendarControls {
