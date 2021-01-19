@@ -1,9 +1,13 @@
 import './App.css';
+import Layout from './hoc/layout/layout';
+import Calendar from './pages/calendar/calendar';
 
 function App() {
   return (
     <div className="App">
-      <p>Calendar</p>
+      <Layout>
+        <Calendar />
+      </Layout>
     </div>
   );
 }

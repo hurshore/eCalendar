@@ -1,0 +1,60 @@
+.calendar {
+  padding: 1rem;
+}
+
+.calendarBox {
+  background-color: #FFF;
+  border-radius: .7rem;
+  padding: 1.2rem;
+  max-width: 300px;
+  margin: auto;
+}
+
+.calendarControls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendarControls .today {
+  font-size: 1.1rem;
+}
+
+.calendarControls .arrow {
+  padding: .3rem .5rem;
+  box-shadow: 0 0 4px rgba(0, 0, 0, .4);
+  align-self: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, auto);
+  grid-gap: 1.1rem;
+  margin: 1rem 0;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  grid-column: 1/span 7;
+  grid-gap: 1rem;
+  color: #9DA3A9;
+}
+
+.calendarGrid > div {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.setReminder {
+  color: #616770;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+
+.setReminder img {
+  margin-right: 1rem;
+}
