@@ -1,9 +1,13 @@
 import React from 'react';
+import Navbar from '../../components/Navbar/Navbar';
 
 const layout = (props) => {
   return (
     <React.Fragment>
-      {props.children}
+      <Navbar />
+      <main>
+        {props.children}
+      </main>
     </React.Fragment>
   )
 }

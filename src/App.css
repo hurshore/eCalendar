@@ -1,6 +1,7 @@
 .App {
   background-color: #D6DAE0;
   min-height: 100vh;
+  transition: all .3s;
 }
 
 .App.dark {

@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.dark .logo {
+  color: #FFF;
+}
+
+.themeToggle {
+  cursor: pointer;
+}
