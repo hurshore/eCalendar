@@ -15,7 +15,7 @@ import {
 } from '../../utility/calendar';
 
 const Calendar = () => {
-  const [today] = useState(new Date());
+  const [today, setToday] = useState(new Date());
   const [dateOnDisplay, setCurrentMonth] = useState(new Date());
   const [prevMonthDays, setPrevMonth] = useState([]);
   const [presentMonthDays, setPresentMonth] = useState([]);
@@ -46,6 +46,16 @@ const Calendar = () => {
     setPresentMonth(presentMonthCell);
     setNextMonth(nextMonthCell);
   }, [dateOnDisplay])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      if(now.getDate() !== today.getDate()) {
+        setToday(now)
+      }
+    }, 1000)
+    return () => clearInterval(interval);
+  }, [])
 
   const getPrevMonth = () => {
     if(dateOnDisplay.getMonth() === 0) {
@@ -91,7 +101,7 @@ const Calendar = () => {
             <div>Fr</div>
             <div>Sa</div>
           </div>
-          {prevMonthDays.map((day) => <div key={day}>{day}</div>)}
+          {prevMonthDays.map((day) => <div key={day} className={classes.prevMonth}>{day}</div>)}
           {presentMonthDays.map((day) => (
             today.getFullYear() === dateOnDisplay.getFullYear() && 
             today.getMonth() === dateOnDisplay.getMonth() && 
@@ -99,7 +109,7 @@ const Calendar = () => {
             <div key={day} className={classes.today}>{day}</div> : 
             <div key={day}>{day}</div>
           ))}
-          {nextMonthDays.map((day) => <div key={day}>{day}</div>)}
+          {nextMonthDays.map((day) => <div key={day} className={classes.nextMonth}>{day}</div>)}
         </div>
         <div className={classes.setReminder}>
           <img src={addIcon} alt="add" width="12" />
