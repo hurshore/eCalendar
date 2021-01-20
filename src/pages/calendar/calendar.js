@@ -55,7 +55,7 @@ const Calendar = () => {
       }
     }, 1000)
     return () => clearInterval(interval);
-  }, [])
+  }, [today])
 
   const getPrevMonth = () => {
     if(dateOnDisplay.getMonth() === 0) {
