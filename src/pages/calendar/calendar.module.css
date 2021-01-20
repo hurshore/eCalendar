@@ -10,7 +10,7 @@
   background-color: #FFF;
   border-radius: .7rem;
   padding: 1.2rem;
-  max-width: 300px;
+  max-width: 400px;
   margin: auto;
 }
 
@@ -23,7 +23,7 @@
   justify-content: space-between;
 }
 
-.calendarControls .today {
+.calendarControls .presentMonth {
   font-size: 1.1rem;
 }
 
@@ -55,6 +55,13 @@
 .calendarGrid > div {
   text-align: center;
   font-size: 1.1rem;
+  padding: .3rem;
+}
+
+.today {
+  color: #0d8ffc;
+  border: 2px solid #84c9fb;
+  border-radius: 8px;
 }
 
 .setReminder {
@@ -66,3 +73,7 @@
 .setReminder img {
   margin-right: 1rem;
 }
+
+/* @media (max-width: 400px) {
+
+} */
