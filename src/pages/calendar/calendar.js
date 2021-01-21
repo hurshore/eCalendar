@@ -126,7 +126,7 @@ const Calendar = () => {
           <span>Add reminder</span>
         </div>
       </div>
-      {addingReminder && <AddReminder close={closeAddModal} />}
+      {addingReminder && <AddReminder close={closeAddModal} today={today} />}
     </div>
   )
 }
