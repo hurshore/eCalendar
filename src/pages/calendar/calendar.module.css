@@ -69,6 +69,7 @@
 }
 
 .setReminder {
+  display: inline;
   color: #616770;
   margin-top: 1.5rem;
   cursor: pointer;

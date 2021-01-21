@@ -6,6 +6,7 @@ import rightArrowLight from '../../assets/images/right-arrow-light.svg';
 import rightArrowDark from '../../assets/images/right-arrow-dark.svg';
 import addIcon from '../../assets/images/add.svg';
 import { ThemeContext } from '../../context/themeContext';
+import AddReminder from '../../components/AddReminder/AddReminder';
 import { 
   calcPresentMonthLength, 
   getPrevMonthCell, 
@@ -20,6 +21,7 @@ const Calendar = () => {
   const [prevMonthDays, setPrevMonth] = useState([]);
   const [presentMonthDays, setPresentMonth] = useState([]);
   const [nextMonthDays, setNextMonth] = useState([]);
+  const [addingReminder, setAddingReminder] = useState(false);
   const themeContext = useContext(ThemeContext);
 
   useEffect(() => {
@@ -73,6 +75,14 @@ const Calendar = () => {
     }
   }
 
+  const openAddModal = () => {
+    setAddingReminder(true);
+  }
+
+  const closeAddModal = () => {
+    setAddingReminder(false);
+  }
+
   return (
     <div className={themeContext.theme === 'light' ? classes.calendar : `${classes.calendar} ${classes.dark}`}>
       <div className={classes.calendarBox}>
@@ -111,11 +121,12 @@ const Calendar = () => {
           ))}
           {nextMonthDays.map((day) => <div key={day} className={classes.nextMonth}>{day}</div>)}
         </div>
-        <div className={classes.setReminder}>
+        <div className={classes.setReminder} onClick={openAddModal}>
           <img src={addIcon} alt="add" width="12" />
           <span>Add reminder</span>
         </div>
       </div>
+      {addingReminder && <AddReminder close={closeAddModal} />}
     </div>
   )
 }

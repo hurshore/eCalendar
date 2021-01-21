@@ -1,0 +1,84 @@
+.content {
+  padding: 1rem;
+}
+
+.header {
+  text-align: center;
+  font-size: 1.1rem;
+  margin: 1rem 0 .5rem 0;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  color: #a7a5ad;
+  font-size: .9rem;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: .6rem;
+  border-radius: .5rem;
+  font-size: 1rem;
+  border: 1px solid black;
+}
+
+.dark .formGroup input {
+  border: none;
+}
+
+.time {
+  display: flex;
+}
+
+.time select {
+  width: 100px;
+  padding: .6rem;
+  border-radius: .5rem;
+  background-color: #FFF;
+}
+
+.hour, .minute {
+  display: flex;
+  flex-direction: column;
+}
+
+.hour {
+  margin-right: 1rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  background-color: #d9d9da;
+  padding: 1rem;
+  border-radius: 0 0 .7rem .7rem;
+}
+
+.dark .footer {
+  background-color: #313033;
+}
+
+.btn {
+  padding: .7rem;
+  width: 100px;
+  border-radius: .5rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cancel {
+  margin-right: .5rem;
+  background-color: #3e3d40;
+  color: #a7a5ad;
+}
+
+.create {
+  color: #FFF;
+  background-color: #0275d8;
+}
