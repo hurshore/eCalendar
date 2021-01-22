@@ -11,7 +11,7 @@ export const validateReminder = (reminder) => {
     err = 'Title cannot be empty';
     return err;
   }
-  if(reminderDate < dateNow) err = 'Cannot set a date or time before now';
+  if(reminderDate <= dateNow) err = 'Cannot set a date or time before now';
 
   return err;
 }

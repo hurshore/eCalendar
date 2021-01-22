@@ -3,8 +3,9 @@ import Modal from '../UI/Modal/Modal';
 import classes from './AddReminder.module.css';
 import { ThemeContext } from '../../context/themeContext';
 import { validateReminder } from '../../utility/validators';
+import { v4 as uuidv4 } from 'uuid';
 
-const AddReminder = ({ close, today }) => {
+const AddReminder = ({ close, today, addReminder }) => {
   const [title, setTitle] = useState('')
   const [date, setDate] = useState(null);
   const [time, setTime] = useState({ 
@@ -29,15 +30,10 @@ const AddReminder = ({ close, today }) => {
   if((month < 10)) month = `0${month}`
   if(day < 10) day = `0${day}`;
 
-  const dateChangeHandler = (event) => {
-    console.log(event.target.value);
-  }
-
   const createReminder = () => {
     let reminders = [];
-    const reminder = { title, date, time };
+    const reminder = { title, date, time, read: false, id: uuidv4() };
     const err = validateReminder(reminder);
-    console.log(err);
     if(err) {
       setError(err);
       return;
@@ -50,6 +46,7 @@ const AddReminder = ({ close, today }) => {
       reminders = [reminder]
     }
 
+    addReminder(reminder)
     localStorage.setItem('reminders', JSON.stringify(reminders));
     setError(null);
     close();

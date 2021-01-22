@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import classes from './calendar.module.css';
+import Day from '../../components/Day/Day';
 import leftArrowLight from '../../assets/images/left-arrow-light.svg';
 import leftArrowDark from '../../assets/images/left-arrow-dark.svg';
 import rightArrowLight from '../../assets/images/right-arrow-light.svg';
@@ -22,7 +23,13 @@ const Calendar = () => {
   const [presentMonthDays, setPresentMonth] = useState([]);
   const [nextMonthDays, setNextMonth] = useState([]);
   const [addingReminder, setAddingReminder] = useState(false);
+  const [reminders, setReminders] = useState([]);
   const themeContext = useContext(ThemeContext);
+
+  useEffect(() => {
+    const reminders = JSON.parse(localStorage.getItem('reminders'));
+    if(reminders) setReminders(reminders);
+  }, [])
 
   useEffect(() => {
     const presentMonthLength = calcPresentMonthLength(dateOnDisplay);
@@ -53,11 +60,32 @@ const Calendar = () => {
     const interval = setInterval(() => {
       const now = new Date();
       if(now.getDate() !== today.getDate()) {
-        setToday(now)
+        setToday(now);
       }
     }, 1000)
     return () => clearInterval(interval);
   }, [today])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      reminders.forEach(reminder => {
+        const now = new Date();
+        now.setMilliseconds(0);
+        const date = new Date(reminder.date);
+        date.setHours(reminder.time.hours);
+        date.setMinutes(reminder.time.minutes);
+        date.setMilliseconds(0);
+        
+        if(date.getTime() === now.getTime()) {
+          const audio = new Audio('/notification.mp3');
+          audio.play();
+          // Set read reminder to true
+          
+        }
+      })
+    }, 1000)
+    return () => clearInterval(interval);
+  }, [reminders])
 
   const getPrevMonth = () => {
     if(dateOnDisplay.getMonth() === 0) {
@@ -81,6 +109,10 @@ const Calendar = () => {
 
   const closeAddModal = () => {
     setAddingReminder(false);
+  }
+
+  const addReminder = (reminder) => {
+    setReminders([...reminders, reminder]);
   }
 
   return (
@@ -111,22 +143,22 @@ const Calendar = () => {
             <div>Fr</div>
             <div>Sa</div>
           </div>
-          {prevMonthDays.map((day) => <div key={day} className={classes.prevMonth}>{day}</div>)}
+          {prevMonthDays.map((day) => <Day key={day} day={day} className={classes.prevMonth} />)}
           {presentMonthDays.map((day) => (
             today.getFullYear() === dateOnDisplay.getFullYear() && 
             today.getMonth() === dateOnDisplay.getMonth() && 
             day === today.getDate() ? 
-            <div key={day} className={classes.today}>{day}</div> : 
-            <div key={day}>{day}</div>
+            <Day key={day} day={day} className={classes.today} /> : 
+            <Day key={day} day={day} />
           ))}
-          {nextMonthDays.map((day) => <div key={day} className={classes.nextMonth}>{day}</div>)}
+          {nextMonthDays.map((day) => <Day key={day} day={day} className={classes.nextMonth} />)}
         </div>
         <div className={classes.setReminder} onClick={openAddModal}>
           <img src={addIcon} alt="add" width="12" />
           <span>Add reminder</span>
         </div>
       </div>
-      {addingReminder && <AddReminder close={closeAddModal} today={today} />}
+      {addingReminder && <AddReminder close={closeAddModal} today={today} addReminder={addReminder} />}
     </div>
   )
 }
