@@ -1,7 +1,11 @@
 export const calcPresentMonthLength = (date) => {
   const year = date.getFullYear();
   const month = date.getMonth();
-  return new Date(year, month + 1, 0).getDate();
+  return {
+    presentMonth: month,
+    presentMonthYear: year,
+    presentMonthLength:  new Date(year, month + 1, 0).getDate()
+  }
 }
 
 export const calcPrevMonthLength = (date) => {
@@ -14,7 +18,11 @@ export const calcPrevMonthLength = (date) => {
     year = date.getFullYear();
     month = date.getMonth() - 1;
   }
-  return new Date(year, month + 1, 0).getDate();
+  return {
+    prevMonth: month,
+    prevMonthYear: year,
+    prevMonthLength: new Date(year, month + 1, 0).getDate()
+  }
 }
 
 export const getPrevMonthCell = (date) => {

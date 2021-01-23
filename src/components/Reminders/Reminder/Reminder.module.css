@@ -1,0 +1,28 @@
+.reminder {
+  padding: .5rem .7rem;
+}
+
+.reminder:nth-child(odd) {
+  background-color: #D9D9DA;
+}
+
+.dark.reminder:nth-child(odd) {
+  background-color: #1D1E1F;
+}
+
+.reminder:first-child {
+  border-radius: .7rem .7rem 0 0;
+}
+
+.reminder:last-child {
+  border-radius: 0 0 .7rem .7rem;
+}
+
+.time {
+  color: #33383c;
+  margin-top: .2rem;
+}
+
+.dark .time {
+  color: #a7a5ad;
+}

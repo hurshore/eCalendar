@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeContextProvider from './context/themeContext';
+import ReminderContextProvider from './context/reminderContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeContextProvider>
-      <App />
+      <ReminderContextProvider>
+        <App />
+      </ReminderContextProvider>
     </ThemeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

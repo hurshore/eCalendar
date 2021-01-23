@@ -7,12 +7,14 @@ const Modal = (props) => {
   const themeContext = useContext(ThemeContext);
 
   return (
-    <React.Fragment>
-      <Backdrop clicked={props.clicked} />
-      <div className={themeContext.theme === 'light' ? classes.modal : `${classes.modal} ${classes.dark}`}>
-        {props.children}
-      </div>
-    </React.Fragment>
+    props.open && (
+      <React.Fragment>
+        <Backdrop clicked={props.onClose} />
+        <div className={themeContext.theme === 'light' ? classes.modal : `${classes.modal} ${classes.dark}`}>
+          {props.children}
+        </div>
+      </React.Fragment>
+    )
   )
 }
 

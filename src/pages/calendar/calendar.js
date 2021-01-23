@@ -15,6 +15,7 @@ import {
   calcPrevMonthLength, 
   getMonthName 
 } from '../../utility/calendar';
+import { ReminderContext } from '../../context/reminderContext';
 
 const Calendar = () => {
   const [today, setToday] = useState(new Date());
@@ -23,17 +24,14 @@ const Calendar = () => {
   const [presentMonthDays, setPresentMonth] = useState([]);
   const [nextMonthDays, setNextMonth] = useState([]);
   const [addingReminder, setAddingReminder] = useState(false);
-  const [reminders, setReminders] = useState([]);
   const themeContext = useContext(ThemeContext);
+  const reminderContext = useContext(ReminderContext);
+  const { reminders } = reminderContext;
+
 
   useEffect(() => {
-    const reminders = JSON.parse(localStorage.getItem('reminders'));
-    if(reminders) setReminders(reminders);
-  }, [])
-
-  useEffect(() => {
-    const presentMonthLength = calcPresentMonthLength(dateOnDisplay);
-    const prevMonthLength = calcPrevMonthLength(dateOnDisplay);
+    const { presentMonth, presentMonthYear,presentMonthLength } = calcPresentMonthLength(dateOnDisplay);
+    const { prevMonth, prevMonthYear, prevMonthLength } = calcPrevMonthLength(dateOnDisplay);
     const prevMonthCellCount = getPrevMonthCell(dateOnDisplay);
     const nextMonthCellCount = getNextMonthCell(presentMonthLength, prevMonthCellCount);
     let prevMonthCell = [];
@@ -42,14 +40,18 @@ const Calendar = () => {
     let index = 1;
 
     for(let i = 1; i <= prevMonthCellCount; i++) {
-      prevMonthCell.push(prevMonthLength - prevMonthCellCount + index);
+      const day = prevMonthLength - prevMonthCellCount + index;
+      const date = new Date(prevMonthYear, prevMonth, day);
+      prevMonthCell.push(date);
       index += 1;
     }
     for(let i = 1; i <= presentMonthLength; i++) {
-      presentMonthCell.push(i);
+      const date = new Date(presentMonthYear, presentMonth, i);
+      presentMonthCell.push(date);
     }
     for(let i = 1; i <= nextMonthCellCount; i++) {
-      nextMonthCell.push(i);
+      const date = new Date(presentMonthYear, prevMonth + 1, i);
+      nextMonthCell.push(date);
     }
     setPrevMonth(prevMonthCell);
     setPresentMonth(presentMonthCell);
@@ -111,10 +113,6 @@ const Calendar = () => {
     setAddingReminder(false);
   }
 
-  const addReminder = (reminder) => {
-    setReminders([...reminders, reminder]);
-  }
-
   return (
     <div className={themeContext.theme === 'light' ? classes.calendar : `${classes.calendar} ${classes.dark}`}>
       <div className={classes.calendarBox}>
@@ -143,22 +141,22 @@ const Calendar = () => {
             <div>Fr</div>
             <div>Sa</div>
           </div>
-          {prevMonthDays.map((day) => <Day key={day} day={day} className={classes.prevMonth} />)}
-          {presentMonthDays.map((day) => (
+          {prevMonthDays.map((date) => <Day key={date} date={date} className={classes.prevMonth} />)}
+          {presentMonthDays.map((date) => (
             today.getFullYear() === dateOnDisplay.getFullYear() && 
             today.getMonth() === dateOnDisplay.getMonth() && 
-            day === today.getDate() ? 
-            <Day key={day} day={day} className={classes.today} /> : 
-            <Day key={day} day={day} />
+            date.getDate() === today.getDate() ? 
+            <Day key={date} date={date} className={classes.today} /> : 
+            <Day key={date} date={date} />
           ))}
-          {nextMonthDays.map((day) => <Day key={day} day={day} className={classes.nextMonth} />)}
+          {nextMonthDays.map((date) => <Day key={date} date={date} className={classes.nextMonth} />)}
         </div>
         <div className={classes.setReminder} onClick={openAddModal}>
           <img src={addIcon} alt="add" width="12" />
           <span>Add reminder</span>
         </div>
       </div>
-      {addingReminder && <AddReminder close={closeAddModal} today={today} addReminder={addReminder} />}
+      <AddReminder open={addingReminder} close={closeAddModal} today={today} />
     </div>
   )
 }

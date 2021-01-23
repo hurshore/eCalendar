@@ -2,10 +2,11 @@ import React, { useState, useContext } from 'react';
 import Modal from '../UI/Modal/Modal';
 import classes from './AddReminder.module.css';
 import { ThemeContext } from '../../context/themeContext';
+import { ReminderContext } from '../../context/reminderContext';
 import { validateReminder } from '../../utility/validators';
 import { v4 as uuidv4 } from 'uuid';
 
-const AddReminder = ({ close, today, addReminder }) => {
+const AddReminder = ({ open, close, today }) => {
   const [title, setTitle] = useState('')
   const [date, setDate] = useState(null);
   const [time, setTime] = useState({ 
@@ -14,6 +15,7 @@ const AddReminder = ({ close, today, addReminder }) => {
   })
   const [error, setError] = useState(null);
   const themeContext = useContext(ThemeContext);
+  const reminderContext = useContext(ReminderContext);
   let hours = [];
   let minutes = [];
 
@@ -46,7 +48,7 @@ const AddReminder = ({ close, today, addReminder }) => {
       reminders = [reminder]
     }
 
-    addReminder(reminder)
+    reminderContext.addReminder(reminder);
     localStorage.setItem('reminders', JSON.stringify(reminders));
     setError(null);
     close();
@@ -54,7 +56,7 @@ const AddReminder = ({ close, today, addReminder }) => {
   
 
   return (
-    <Modal clicked={close}>
+    <Modal onClose={close} open={open}>
       <div className={themeContext.theme === 'light' ? classes.addReminder : `${classes.addReminder} ${classes.dark}`}>
         <div className={classes.header}>
           <p className={classes.headerText}>Create a Reminder</p>
