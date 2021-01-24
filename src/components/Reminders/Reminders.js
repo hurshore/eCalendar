@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Reminder from './Reminder/Reminder';
 import Modal from '../UI/Modal/Modal';
 import classes from './Reminders.module.css';
 import { ReminderContext } from '../../context/reminderContext';
 import { ThemeContext } from '../../context/themeContext'
-import { dayHasPassed, dateHasPassed } from '../../utility/validators';
+import { dateHasPassed, orderReminders } from '../../utility/calendar';
 
 const Reminders = ({ open, close, date }) => {
   const themeContext = useContext(ThemeContext);
@@ -23,6 +23,10 @@ const Reminders = ({ open, close, date }) => {
     date.setMinutes(reminder.time.minutes);
     return dateHasPassed(date);
   })
+
+  hitReminders.sort((a, b) => {
+    return orderReminders(a, b);
+  })
   
   const upcomingReminders = selectedDateReminders.filter((reminder) => {
     const date = new Date(reminder.date)
@@ -31,13 +35,9 @@ const Reminders = ({ open, close, date }) => {
     return !dateHasPassed(date);
   })
 
-  useEffect(() => {
-    // Update the upcoming reminders regularly
-    // const interval = setInterval(() => {
-
-    // }, 1000);
-    // return () => clearInterval(interval);
-  }, [])
+  upcomingReminders.sort((a, b) => {
+    return orderReminders(a, b);
+  })
 
   return (
     <Modal open={open} onClose={close}>

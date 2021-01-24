@@ -1,8 +1,15 @@
+.editIcon {
+  position: absolute;
+  bottom: 7px;
+  right: 11px;
+  cursor: pointer;
+}
+
 .content {
   padding: 1rem;
 }
 
-.addReminder {
+.editReminder {
   position: relative;
 }
 
@@ -14,7 +21,6 @@
 
 .headerText {
   font-size: 1.1rem;
-  margin: 1rem 0 .5rem 0;
 }
 
 .error {
@@ -89,8 +95,8 @@
 
 .cancel {
   margin-right: .5rem;
-  background-color: #3e3d40;
-  color: #a7a5ad;
+  background-color: red;
+  color: #FFF;
 }
 
 .create {

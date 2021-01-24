@@ -50,7 +50,7 @@ const Calendar = () => {
       presentMonthCell.push(date);
     }
     for(let i = 1; i <= nextMonthCellCount; i++) {
-      const date = new Date(presentMonthYear, prevMonth + 1, i);
+      const date = new Date(presentMonthYear, presentMonth + 1, i);
       nextMonthCell.push(date);
     }
     setPrevMonth(prevMonthCell);
@@ -61,7 +61,6 @@ const Calendar = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
-      // Change the logic here
       if(now.getDate() !== today.getDate()) {
         setToday(now);
       }
@@ -147,8 +146,8 @@ const Calendar = () => {
             today.getFullYear() === dateOnDisplay.getFullYear() && 
             today.getMonth() === dateOnDisplay.getMonth() && 
             date.getDate() === today.getDate() ? 
-            <Day key={date} date={date} className={classes.today} /> : 
-            <Day key={date} date={date} />
+            <Day key={date} date={date} className={`${classes.today} ${classes.presentMonth}`} /> : 
+            <Day key={date} date={date} className={classes.presentMonth} />
           ))}
           {nextMonthDays.map((date) => <Day key={date} date={date} className={classes.nextMonth} />)}
         </div>

@@ -1,3 +1,16 @@
 .day {
   cursor: pointer;
 }
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #E67B29;
+  margin-top: .2rem;
+}
+
+.invisible {
+  visibility: hidden;
+}

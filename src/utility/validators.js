@@ -15,19 +15,3 @@ export const validateReminder = (reminder) => {
 
   return err;
 }
-
-export const dayHasPassed = (date) => {
-  const dateNow = new Date();
-  dateNow.setHours(0);
-  dateNow.setMinutes(0);
-  dateNow.setMilliseconds(0);
-  date.setMilliseconds(0);
-  return dateNow > date;
-}
-
-export const dateHasPassed = (date) => {
-  const dateNow = new Date();
-  dateNow.setMilliseconds(0);
-  date.setMilliseconds(0);
-  return dateNow > date;
-}

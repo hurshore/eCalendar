@@ -52,10 +52,16 @@
   color: #9DA3A9;
 }
 
-.calendarGrid > div {
+.weekDays, .prevMonth, .presentMonth, .nextMonth {
   text-align: center;
   font-size: 1.1rem;
   padding: .3rem;
+}
+
+.prevMonth, .presentMonth, .nextMonth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .today {

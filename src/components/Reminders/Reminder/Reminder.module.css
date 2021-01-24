@@ -1,5 +1,6 @@
 .reminder {
   padding: .5rem .7rem;
+  position: relative;
 }
 
 .reminder:nth-child(odd) {

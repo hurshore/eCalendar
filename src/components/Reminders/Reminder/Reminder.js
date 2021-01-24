@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import classes from './Reminder.module.css';
 import { ThemeContext } from '../../../context/themeContext';
+import EditReminder from '../../EditReminder/EditReminder';
 
 const Reminder = ({ reminder, upcoming }) => {
   const themeContext = useContext(ThemeContext);
@@ -16,6 +17,7 @@ const Reminder = ({ reminder, upcoming }) => {
         {reminder.title}
       </p>
       <p className={classes.time}>{`${hours}:${minutes}`}</p>
+      <EditReminder reminder={reminder} />
     </div>
   )
 }

@@ -7,8 +7,9 @@
   z-index: 150;
   border-radius: .7rem;
   width: 80%;
+  min-width: 300px;
   max-width: 400px;
-  min-height: 400px;
+  min-height: 418px;
   max-height: 80vh;
   overflow-y: auto;
 }

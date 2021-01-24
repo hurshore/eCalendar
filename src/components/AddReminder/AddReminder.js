@@ -10,7 +10,7 @@ const AddReminder = ({ open, close, today }) => {
   const [title, setTitle] = useState('')
   const [date, setDate] = useState(null);
   const [time, setTime] = useState({ 
-    hours: new Date().getHours() + 1,
+    hours: new Date().getHours() !== 23 ? new Date().getHours() + 1 : 0,
     minutes: new Date().getMinutes()
   })
   const [error, setError] = useState(null);
@@ -33,23 +33,14 @@ const AddReminder = ({ open, close, today }) => {
   if(day < 10) day = `0${day}`;
 
   const createReminder = () => {
-    let reminders = [];
     const reminder = { title, date, time, read: false, id: uuidv4() };
     const err = validateReminder(reminder);
     if(err) {
       setError(err);
       return;
     }
-    const storedReminders = localStorage.getItem('reminders');
-
-    if(storedReminders) {
-      reminders = [...JSON.parse(storedReminders), reminder];
-    } else {
-      reminders = [reminder]
-    }
 
     reminderContext.addReminder(reminder);
-    localStorage.setItem('reminders', JSON.stringify(reminders));
     setError(null);
     close();
   }

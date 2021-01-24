@@ -40,3 +40,29 @@ export const getMonthName = (index) => {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   return monthNames[index];
 }
+
+export const dayHasPassed = (date) => {
+  const dateNow = new Date();
+  dateNow.setHours(0);
+  dateNow.setMinutes(0);
+  dateNow.setMilliseconds(0);
+  date.setMilliseconds(0);
+  return dateNow > date;
+}
+
+export const dateHasPassed = (date) => {
+  const dateNow = new Date();
+  dateNow.setMilliseconds(0);
+  date.setMilliseconds(0);
+  return dateNow > date;
+}
+
+export const orderReminders = (reminderA, reminderB) => {
+  const dateA = new Date(reminderA.date);
+  const dateB = new Date(reminderB.date);
+  dateA.setHours(reminderA.time.hours);
+  dateB.setHours(reminderB.time.hours);
+  dateA.setMinutes(reminderA.time.minutes);
+  dateB.setMinutes(reminderB.time.minutes);
+  return dateA - dateB;
+}
