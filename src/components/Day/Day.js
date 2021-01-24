@@ -15,7 +15,7 @@ const Day = ({ date, className }) => {
 
   return (
     <React.Fragment>
-      <div className={`${className} ${classes.day}`} onClick={openReminderModal}>{date.getDate()}</div>
+      <div className={!className ? classes.day : `${className} ${classes.day}`} onClick={openReminderModal}>{date.getDate()}</div>
       {modalIsOpen && <Reminders open={modalIsOpen} close={closeReminderModal} date={date} />}
     </React.Fragment>
   )

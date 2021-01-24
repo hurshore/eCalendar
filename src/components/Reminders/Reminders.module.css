@@ -6,3 +6,13 @@
   padding: .7rem;
   text-align: center;
 }
+
+.upcomingReminders .heading {
+  color: #33383c;
+  margin: .7rem 0 0 .7rem;
+  font-size: .95rem;
+}
+
+.dark .upcomingReminders .heading {
+  color: #a7a5ad;
+}

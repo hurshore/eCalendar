@@ -61,6 +61,7 @@ const Calendar = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
+      // Change the logic here
       if(now.getDate() !== today.getDate()) {
         setToday(now);
       }
@@ -156,7 +157,7 @@ const Calendar = () => {
           <span>Add reminder</span>
         </div>
       </div>
-      <AddReminder open={addingReminder} close={closeAddModal} today={today} />
+      {addingReminder && <AddReminder open={addingReminder} close={closeAddModal} today={today} />}
     </div>
   )
 }

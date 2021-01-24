@@ -26,3 +26,12 @@
 .dark .time {
   color: #a7a5ad;
 }
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #E67B29;
+  margin-right: .5rem;
+}
