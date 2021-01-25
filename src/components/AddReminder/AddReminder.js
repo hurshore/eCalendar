@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const AddReminder = ({ open, close, today }) => {
   const [title, setTitle] = useState('')
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState('');
   const [time, setTime] = useState({ 
     hours: new Date().getHours() !== 23 ? new Date().getHours() + 1 : 0,
     minutes: new Date().getMinutes()
@@ -33,7 +33,7 @@ const AddReminder = ({ open, close, today }) => {
   if(day < 10) day = `0${day}`;
 
   const createReminder = () => {
-    const reminder = { title, date, time, read: false, id: uuidv4() };
+    const reminder = { title, date, time, id: uuidv4() };
     const err = validateReminder(reminder);
     if(err) {
       setError(err);
@@ -60,7 +60,7 @@ const AddReminder = ({ open, close, today }) => {
           </div>
           <div className={classes.formGroup}>
             <label>Date</label>
-            <input type="date" min={`${year}-${month}-${day}`} onChange={(event) => setDate(event.target.value)} />
+            <input type="date" value={date} min={`${year}-${month}-${day}`} onChange={(event) => setDate(event.target.value)} />
           </div>
           <div className={classes.formGroup}>
             <div className={classes.time}>

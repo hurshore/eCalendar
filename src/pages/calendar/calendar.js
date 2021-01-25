@@ -81,11 +81,9 @@ const Calendar = () => {
         if(date.getTime() === now.getTime()) {
           const audio = new Audio('/notification.mp3');
           audio.play();
-          // Set read reminder to true
-          
         }
       })
-    }, 1000)
+    }, 1000);
     return () => clearInterval(interval);
   }, [reminders])
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import Reminder from './Reminder/Reminder';
 import Modal from '../UI/Modal/Modal';
 import classes from './Reminders.module.css';
@@ -7,37 +7,57 @@ import { ThemeContext } from '../../context/themeContext'
 import { dateHasPassed, orderReminders } from '../../utility/calendar';
 
 const Reminders = ({ open, close, date }) => {
+  const [selectedDateReminders, setSelectedDateReminders] = useState([]);
+  const [hitReminders, setHitReminders] = useState([]);
+  const [upcomingReminders, setUpcomingReminders] = useState([]);
   const themeContext = useContext(ThemeContext);
   const reminderContext = useContext(ReminderContext);
   const { reminders } = reminderContext;
-  const selectedDateReminders = reminders.filter((reminder) => {
-    const reminderDate = new Date(reminder.date);
-    return reminderDate.getFullYear() === date.getFullYear() &&
-    reminderDate.getMonth() === date.getMonth() &&
-    reminderDate.getDate() === date.getDate()
-  })
 
-  const hitReminders = selectedDateReminders.filter((reminder) => {
-    const date = new Date(reminder.date)
-    date.setHours(reminder.time.hours);
-    date.setMinutes(reminder.time.minutes);
-    return dateHasPassed(date);
-  })
+  const setReminder = useCallback(() => {
+    const selectedDateReminders = reminders.filter((reminder) => {
+      const reminderDate = new Date(reminder.date);
+      return reminderDate.getFullYear() === date.getFullYear() &&
+      reminderDate.getMonth() === date.getMonth() &&
+      reminderDate.getDate() === date.getDate()
+    })
 
-  hitReminders.sort((a, b) => {
-    return orderReminders(a, b);
-  })
+    const hitReminders = selectedDateReminders.filter((reminder) => {
+      const date = new Date(reminder.date)
+      date.setHours(reminder.time.hours);
+      date.setMinutes(reminder.time.minutes);
+      return dateHasPassed(date);
+    })
+    hitReminders.sort((a, b) => {
+      return orderReminders(a, b);
+    })
+
+    const upcomingReminders = selectedDateReminders.filter((reminder) => {
+      const date = new Date(reminder.date)
+      date.setHours(reminder.time.hours);
+      date.setMinutes(reminder.time.minutes);
+      return !dateHasPassed(date);
+    })
   
-  const upcomingReminders = selectedDateReminders.filter((reminder) => {
-    const date = new Date(reminder.date)
-    date.setHours(reminder.time.hours);
-    date.setMinutes(reminder.time.minutes);
-    return !dateHasPassed(date);
-  })
+    upcomingReminders.sort((a, b) => {
+      return orderReminders(a, b);
+    })
 
-  upcomingReminders.sort((a, b) => {
-    return orderReminders(a, b);
-  })
+    setSelectedDateReminders(selectedDateReminders);
+    setHitReminders(hitReminders);
+    setUpcomingReminders(upcomingReminders);
+  }, [date, reminders])
+
+  useEffect(() => {
+    setReminder();
+  }, [reminders, setReminder])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReminder();
+    }, 1000)
+    return () => clearInterval(interval);
+  }, [setReminder])
 
   return (
     <Modal open={open} onClose={close}>

@@ -18,7 +18,7 @@ const ReminderContextProvider = props => {
 
   const editReminder = (reminder) => {
     const newReminders = reminders.map((rmd) => rmd.id !== reminder.id ? 
-      rmd : { ...rmd, title: reminder.title, date: reminder.date, time: reminder.time, read: reminder.read }
+      rmd : { ...rmd, title: reminder.title, date: reminder.date, time: reminder.time }
     )
     setReminders(newReminders);
     localStorage.setItem('reminders', JSON.stringify(newReminders));
